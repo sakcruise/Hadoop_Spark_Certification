@@ -1,0 +1,29 @@
+--sqoop import with warehouse_dir,boundary_query,columns
+sqoop import 
+--connect jdbc:mysql://ip-172-31-13-154:3306/dstore2 
+--username sqoopuser 
+--password NHkkP876rp 
+--table CUSTOMERS --warehouse-dir /apps/hive/warehouse/customerw 
+--boundary-query "select 1, 10 from CUSTOMERS WHERE CUSTOMERID <=10 limit 1"
+--columns customerid,firstname
+
+--sqoop import with join tables using query, where,\$conditions,boundary_query to limit to 10 orderid's/records for practice instead of whole table join
+sqoop import 
+--connect jdbc:mysql://ip-172-31-13-154:3306/dstore2 
+--username sqoopuser 
+--password NHkkP876rp 
+--boundary-query "select 1,10 from ORDERS limit 1" 
+--query "select o1.* from ORDERS o1 inner join ORDERLINES o2 ON o1.orderid = o2.orderid WHERE o1.orderid <= 10 and \$CONDITIONS" 
+--target-dir /user/sakthimuruganv2214/sqoop_import/ordersjoin 
+--split-by o1.orderid 
+--m 4
+--sqoop import and creating hive tables
+sqoop import 
+--connect jdbc:mysql://ip-172-31-13-154:3306/dstore2 
+--username sqoopuser 
+--password NHkkP876rp 
+--table ORDERS 
+--hive-import 
+--hive-overwrite 
+--hive-table sakthi123.orders 
+--columns ORDERID,ORDERDATE,TOTALAMOUNT
