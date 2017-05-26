@@ -1,4 +1,0 @@
-//sqoop import with warehouse_dir,boundary_query,columns
-sqoop import --connect jdbc:mysql://ip-172-31-13-154:3306/dstore2 --username sqoopuser --password NHkkP876rp --table CUSTOMERS --warehouse-dir /apps/hive/warehouse/customerw --boundary-query "select 1, 10 from CUSTOMERS WHERE CUSTOMERID <=10 limit 1" --columns customerid,firstname
-
-//sqoop import with join tables using --query command
